@@ -52,10 +52,14 @@ function selectList(property) {
   return text ? [text] : [];
 }
 
+function fileUrls(property) {
+  return (property?.files || [])
+    .map((file) => (file.type === "external" ? file.external?.url || "" : file.file?.url || ""))
+    .filter(Boolean);
+}
+
 function fileUrl(property) {
-  const firstFile = property?.files?.[0];
-  if (!firstFile) return "";
-  return firstFile.type === "external" ? firstFile.external?.url || "" : firstFile.file?.url || "";
+  return fileUrls(property)[0] || "";
 }
 
 function priorityValue(property) {
@@ -75,6 +79,7 @@ function mapPage(page) {
     subtitle: plainText(properties.Subtitle),
     description: plainText(properties.Description),
     contentUpload: fileUrl(properties["Content Upload"]),
+    additionalImages: fileUrls(properties["Additional Images"]),
     badges: selectList(properties.Badges),
     tags: selectList(properties.Tags),
     category: plainText(properties.Category),

@@ -503,9 +503,14 @@ const elements = {
   modalDescriptionBlock: document.querySelector("[data-modal-description-block]"),
   modalDescription: document.querySelector("[data-modal-description]"),
   modalMedia: document.querySelector("[data-modal-media]"),
-  modalLinks: document.querySelector("[data-modal-links]"),
+  modalAttachments: document.querySelector("[data-modal-attachments]"),
+  modalAttachmentGrid: document.querySelector("[data-modal-attachment-grid]"),
   modalCloseButton: document.querySelector(".modal-close"),
   modalCloseControls: document.querySelectorAll("[data-modal-close]"),
+  mediaPreviewShell: document.querySelector("[data-media-preview-shell]"),
+  mediaPreviewImage: document.querySelector("[data-media-preview-image]"),
+  mediaPreviewTitle: document.querySelector("[data-media-preview-title]"),
+  mediaPreviewCloseControls: document.querySelectorAll("[data-media-preview-close]"),
 };
 
 function parseDate(value) {
@@ -726,7 +731,11 @@ function badgeTemplate(badge) {
 
 function linkTemplate(url, label) {
   if (!url) return "";
-  return `<a class="modal-link" href="${escapeHTML(url)}" target="_blank" rel="noreferrer"><span>${escapeHTML(label)}</span><strong>${escapeHTML(url)}</strong></a>`;
+  return `<a class="modal-link attachment-link" href="${escapeHTML(url)}" target="_blank" rel="noreferrer"><span class="attachment-link-icon" aria-hidden="true">↗</span><span>${escapeHTML(label)}</span><strong>${escapeHTML(url)}</strong></a>`;
+}
+
+function imageThumbnailTemplate(url, title, index) {
+  return `<button class="attachment-thumbnail" type="button" data-media-preview-url="${escapeHTML(url)}" data-media-preview-title="${escapeHTML(title)} — image ${index + 1}" aria-label="Open full-size ${escapeHTML(title)} image ${index + 1}"><img src="${escapeHTML(url)}" alt="${escapeHTML(title)} additional image ${index + 1}" loading="lazy"><span>View image</span></button>`;
 }
 
 function setModalTextField(element, value) {
@@ -747,10 +756,13 @@ function openModal(item, trigger) {
     ? `<img src="${escapeHTML(item.contentUpload)}" alt="${escapeHTML(item.title || "Announcement")} artwork">`
     : "";
   elements.modalMedia.classList.toggle("is-hidden", !item.contentUpload);
-  elements.modalLinks.innerHTML =
-    linkTemplate(item.link, "Link") +
-    linkTemplate(item.additionalLink, "Additional Link");
-  elements.modalLinks.classList.toggle("is-hidden", !item.link && !item.additionalLink);
+  const additionalImages = Array.isArray(item.additionalImages) ? item.additionalImages : [];
+  elements.modalAttachmentGrid.innerHTML = [
+    ...additionalImages.map((url, index) => imageThumbnailTemplate(url, item.title || "Announcement", index)),
+    linkTemplate(item.link, "Link"),
+    linkTemplate(item.additionalLink, "Additional link"),
+  ].join("");
+  elements.modalAttachments.classList.toggle("is-hidden", !additionalImages.length && !item.link && !item.additionalLink);
   elements.modalShell.classList.remove("is-hidden");
   document.body.classList.add("modal-open");
   elements.modalCloseButton?.focus();
@@ -760,6 +772,21 @@ function closeModal() {
   elements.modalShell.classList.add("is-hidden");
   document.body.classList.remove("modal-open");
   state.lastFocusedElement?.focus();
+}
+
+function openMediaPreview(url, title, trigger) {
+  state.lastPreviewTrigger = trigger;
+  elements.mediaPreviewImage.src = url;
+  elements.mediaPreviewImage.alt = title;
+  elements.mediaPreviewTitle.textContent = title;
+  elements.mediaPreviewShell.classList.remove("is-hidden");
+  elements.mediaPreviewCloseControls[0]?.focus();
+}
+
+function closeMediaPreview() {
+  elements.mediaPreviewShell.classList.add("is-hidden");
+  elements.mediaPreviewImage.removeAttribute("src");
+  state.lastPreviewTrigger?.focus();
 }
 
 function handleCardClick(event) {
@@ -838,9 +865,19 @@ elements.modalCloseControls.forEach((control) => {
   control.addEventListener("click", closeModal);
 });
 
+elements.mediaPreviewCloseControls.forEach((control) => {
+  control.addEventListener("click", closeMediaPreview);
+});
+
+document.addEventListener("click", (event) => {
+  const thumbnail = event.target.closest("[data-media-preview-url]");
+  if (thumbnail) openMediaPreview(thumbnail.dataset.mediaPreviewUrl, thumbnail.dataset.mediaPreviewTitle, thumbnail);
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !elements.modalShell.classList.contains("is-hidden")) {
-    closeModal();
+    if (!elements.mediaPreviewShell.classList.contains("is-hidden")) closeMediaPreview();
+    else closeModal();
   }
 });
 
@@ -1077,6 +1114,7 @@ function normalizeAnnouncement(item) {
     subtitle: item.subtitle || "",
     description: item.description || "",
     contentUpload: item.contentUpload || "",
+    additionalImages: Array.isArray(item.additionalImages) ? item.additionalImages : [],
     badges: Array.isArray(item.badges) ? item.badges : [],
     tags: Array.isArray(item.tags) ? item.tags : [],
     category: item.category || "",

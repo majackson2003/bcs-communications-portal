@@ -766,10 +766,63 @@ button {
   white-space: pre-line;
 }
 
-.modal-links {
+.modal-attachments {
   display: grid;
   gap: 10px;
   margin-top: 8px;
+}
+
+.modal-attachments h2 {
+  margin: 0;
+  color: #1f2f3f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.modal-attachment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 10px;
+}
+
+.attachment-thumbnail,
+.attachment-link {
+  min-width: 0;
+}
+
+.attachment-thumbnail {
+  display: grid;
+  gap: 7px;
+  border: 1px solid #cbd8e6;
+  border-radius: 8px;
+  padding: 7px;
+  background: #f8fafc;
+  color: var(--navy-900);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.attachment-thumbnail img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 5px;
+  object-fit: cover;
+  background: #e8eef5;
+}
+
+.attachment-link-icon {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 6px;
+  background: #e8f0f8;
+  color: var(--navy-900);
+  font-size: 1.1rem;
 }
 
 .modal-link {
@@ -796,6 +849,62 @@ button {
 
 .modal-link strong {
   overflow-wrap: anywhere;
+}
+
+.media-preview-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 42px);
+}
+
+.media-preview-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(4, 14, 24, 0.9);
+}
+
+.media-preview {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  width: min(100%, 1180px);
+  max-height: calc(100dvh - 32px);
+  padding: 16px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 28px 80px rgba(4, 14, 24, 0.5);
+}
+
+.media-preview img {
+  width: 100%;
+  max-height: calc(100dvh - 120px);
+  object-fit: contain;
+}
+
+.media-preview p {
+  margin: 0;
+  color: #42546a;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.media-preview-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(37, 49, 63, 0.16);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #1f2f3f;
+  font-size: 1.65rem;
+  line-height: 1;
 }
 
 body.modal-open {

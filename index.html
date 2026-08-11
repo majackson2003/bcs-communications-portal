@@ -206,8 +206,20 @@
             <h2>Description</h2>
             <p id="modal-description" data-modal-description></p>
           </div>
-          <div class="modal-links" data-modal-links></div>
+          <section class="modal-attachments is-hidden" data-modal-attachments aria-label="Additional announcement materials">
+            <h2>Additional materials</h2>
+            <div class="modal-attachment-grid" data-modal-attachment-grid></div>
+          </section>
         </div>
+      </section>
+    </div>
+
+    <div class="media-preview-shell is-hidden" data-media-preview-shell>
+      <button class="media-preview-backdrop" type="button" aria-label="Close full-size image" data-media-preview-close></button>
+      <section class="media-preview" role="dialog" aria-modal="true" aria-labelledby="media-preview-title">
+        <button class="media-preview-close" type="button" aria-label="Close full-size image" data-media-preview-close>×</button>
+        <img data-media-preview-image alt="">
+        <p id="media-preview-title" data-media-preview-title></p>
       </section>
     </div>
 
