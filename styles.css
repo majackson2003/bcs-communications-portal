@@ -641,9 +641,10 @@ button {
   inset: 0;
   z-index: 80;
   display: grid;
-  place-items: center;
+  place-items: start center;
   padding: clamp(16px, 4vw, 42px);
-  overflow-y: auto;
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 .modal-backdrop {
@@ -660,7 +661,7 @@ button {
   max-height: calc(100vh - clamp(32px, 8vw, 84px));
   max-height: calc(100dvh - clamp(32px, 8vw, 84px));
   overflow-y: auto;
-  align-self: center;
+  align-self: start;
   border-radius: 10px;
   background: white;
   box-shadow: 0 28px 80px rgba(4, 14, 24, 0.38);
@@ -909,6 +910,7 @@ button {
 
 body.modal-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .is-hidden {
