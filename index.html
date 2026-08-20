@@ -183,6 +183,28 @@
       </section>
     </main>
 
+    <section class="announcement-detail-page is-hidden" data-announcement-detail aria-labelledby="announcement-detail-title">
+      <div class="portal-container">
+        <button class="announcement-detail-back" type="button" data-announcement-back>← Back to announcements</button>
+        <article class="announcement-detail-card">
+          <div class="announcement-detail-media" data-detail-media></div>
+          <div class="announcement-detail-content">
+            <div class="modal-badges" data-detail-badges></div>
+            <h1 id="announcement-detail-title" data-detail-title></h1>
+            <p class="announcement-detail-subtitle" data-detail-subtitle></p>
+            <div class="announcement-detail-description is-hidden" data-detail-description-block>
+              <h2>Description</h2>
+              <p data-detail-description></p>
+            </div>
+            <section class="modal-attachments is-hidden" data-detail-attachments aria-label="Additional announcement materials">
+              <h2>Additional materials</h2>
+              <div class="modal-attachment-grid" data-detail-attachment-grid></div>
+            </section>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <div class="modal-shell is-hidden" data-modal-shell>
       <button class="modal-backdrop" type="button" aria-label="Close announcement" data-modal-close></button>
       <section

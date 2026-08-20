@@ -469,6 +469,8 @@ const state = {
     },
   },
   lastFocusedElement: null,
+  detailReturnPage: "announcements",
+  detailReturnScrollY: 0,
 };
 
 const elements = {
@@ -511,6 +513,16 @@ const elements = {
   mediaPreviewImage: document.querySelector("[data-media-preview-image]"),
   mediaPreviewTitle: document.querySelector("[data-media-preview-title]"),
   mediaPreviewCloseControls: document.querySelectorAll("[data-media-preview-close]"),
+  announcementDetail: document.querySelector("[data-announcement-detail]"),
+  announcementBack: document.querySelector("[data-announcement-back]"),
+  detailBadges: document.querySelector("[data-detail-badges]"),
+  detailTitle: document.querySelector("[data-detail-title]"),
+  detailSubtitle: document.querySelector("[data-detail-subtitle]"),
+  detailDescriptionBlock: document.querySelector("[data-detail-description-block]"),
+  detailDescription: document.querySelector("[data-detail-description]"),
+  detailMedia: document.querySelector("[data-detail-media]"),
+  detailAttachments: document.querySelector("[data-detail-attachments]"),
+  detailAttachmentGrid: document.querySelector("[data-detail-attachment-grid]"),
 };
 
 function parseDate(value) {
@@ -768,6 +780,39 @@ function openModal(item, trigger) {
   elements.modalCloseButton?.focus();
 }
 
+function openAnnouncementDetail(item, trigger) {
+  state.lastFocusedElement = trigger;
+  state.detailReturnPage = state.activePage;
+  state.detailReturnScrollY = window.scrollY;
+  elements.detailBadges.innerHTML = item.badges?.length ? item.badges.map(badgeTemplate).join("") : "";
+  setModalTextField(elements.detailTitle, item.title);
+  setModalTextField(elements.detailSubtitle, item.subtitle);
+  const hasDescription = setModalTextField(elements.detailDescription, item.description);
+  elements.detailDescriptionBlock.classList.toggle("is-hidden", !hasDescription);
+  elements.detailMedia.innerHTML = item.contentUpload
+    ? `<img src="${escapeHTML(item.contentUpload)}" alt="${escapeHTML(item.title || "Announcement")} artwork">`
+    : "";
+  elements.detailMedia.classList.toggle("is-hidden", !item.contentUpload);
+  const additionalImages = Array.isArray(item.additionalImages) ? item.additionalImages : [];
+  elements.detailAttachmentGrid.innerHTML = [
+    ...additionalImages.map((url, index) => imageThumbnailTemplate(url, item.title || "Announcement", index)),
+    linkTemplate(item.link, "Link"),
+    linkTemplate(item.additionalLink, "Additional link"),
+  ].join("");
+  elements.detailAttachments.classList.toggle("is-hidden", !additionalImages.length && !item.link && !item.additionalLink);
+  elements.pages.forEach((pageElement) => pageElement.classList.add("is-hidden"));
+  elements.announcementDetail.classList.remove("is-hidden");
+  window.scrollTo({ top: 0, behavior: "instant" });
+  elements.announcementBack.focus();
+}
+
+function closeAnnouncementDetail() {
+  elements.announcementDetail.classList.add("is-hidden");
+  setActivePage(state.detailReturnPage);
+  window.scrollTo({ top: state.detailReturnScrollY, behavior: "instant" });
+  state.lastFocusedElement?.focus();
+}
+
 function closeModal() {
   elements.modalShell.classList.add("is-hidden");
   document.body.classList.remove("modal-open");
@@ -793,7 +838,7 @@ function handleCardClick(event) {
   const card = event.target.closest("[data-announcement-card]");
   if (!card) return;
   const item = announcements[Number(card.dataset.announcementCard)];
-  if (item) openModal(item, card);
+  if (item) openAnnouncementDetail(item, card);
 }
 
 function resetVisibleCount(collection) {
@@ -865,6 +910,8 @@ elements.modalCloseControls.forEach((control) => {
   control.addEventListener("click", closeModal);
 });
 
+elements.announcementBack.addEventListener("click", closeAnnouncementDetail);
+
 elements.mediaPreviewCloseControls.forEach((control) => {
   control.addEventListener("click", closeMediaPreview);
 });
@@ -917,6 +964,7 @@ function renderPortal() {
 function setActivePage(page) {
   const nextPage = document.querySelector(`[data-page="${page}"]`) ? page : "announcements";
   state.activePage = nextPage;
+  elements.announcementDetail.classList.add("is-hidden");
 
   elements.pages.forEach((pageElement) => {
     pageElement.classList.toggle("is-hidden", pageElement.dataset.page !== nextPage);
