@@ -643,7 +643,7 @@ button {
   display: grid;
   place-items: start center;
   padding: clamp(16px, 4vw, 42px);
-  overflow: hidden;
+  overflow-y: auto;
   overscroll-behavior: contain;
 }
 
@@ -658,9 +658,8 @@ button {
   position: relative;
   display: grid;
   width: min(100%, 940px);
-  max-height: calc(100vh - clamp(32px, 8vw, 84px));
-  max-height: calc(100dvh - clamp(32px, 8vw, 84px));
-  overflow-y: auto;
+  max-height: none;
+  overflow: visible;
   align-self: start;
   border-radius: 10px;
   background: white;
