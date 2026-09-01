@@ -4,16 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BCS Communications</title>
-    <meta name="description" content="Byne Christian School public announcements and communications portal.">
+    <meta name="description" content="Protected Byne Christian School announcements and communications portal.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <a class="skip-link" href="#announcements">Skip to content</a>
+    <section class="portal-lock" data-portal-lock role="status" aria-live="polite">
+      <span class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img"><path d="M4 10.2v3.6a2 2 0 0 0 2 2h2.2l1.3 4.2h2.4l-1.2-4.2H13l6 2.9V5.3l-6 2.9H6a2 2 0 0 0-2 2Z"></path></svg>
+      </span>
+      <h1>BCS Communications</h1>
+      <p>Open this portal from the signed-in Team App.</p>
+    </section>
 
-    <header class="portal-header" aria-label="BCS Communications header">
+    <a class="skip-link is-hidden" href="#announcements" data-portal-content>Skip to content</a>
+
+    <header class="portal-header is-hidden" aria-label="BCS Communications header" data-portal-content>
       <a class="brand" href="/" aria-label="BCS Communications home">
         <span class="brand-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" role="img">
@@ -31,7 +39,7 @@
       </nav>
     </header>
 
-    <main>
+    <main class="is-hidden" data-portal-content>
       <div class="hub-page" id="announcements" data-page="announcements">
         <section class="featured-band" aria-labelledby="featured-title">
           <div class="portal-container">

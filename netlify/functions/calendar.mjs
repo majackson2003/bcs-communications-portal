@@ -1,3 +1,7 @@
+import portalAuth from "../lib/portal-auth.js";
+
+const { authorizePortalRequest } = portalAuth;
+
 const FEEDS = {
   athletics:
     "https://calendar.planningcenteronline.com/icals/eJxj4ajmsGLLz2T2NGW04kotzi8oqea0YivNZM7q47Ziy_ZU4kjMyWGzYnMNsWIr8VTiNjIwNDI1YbPmDLFiLwMK8AGl40syc1OLwWLcBYlFibnFQEPZixOBSopT3IBEnhsAM9Qa5A==5c0cec983274631ecba22ff87c0386616977b467",
@@ -10,7 +14,7 @@ function jsonResponse(body, status = 200) {
     status,
     headers: {
       "content-type": "application/json; charset=utf-8",
-      "cache-control": "public, max-age=300, stale-while-revalidate=1800",
+      "cache-control": "private, no-store",
     },
   });
 }
@@ -104,6 +108,11 @@ function parseIcs(ics) {
 }
 
 export default async (request) => {
+  const event = { headers: Object.fromEntries(request.headers.entries()) };
+  if (!(await authorizePortalRequest(event, "calendar"))) {
+    return jsonResponse({ error: "Portal access is not authorized." }, 401);
+  }
+
   const url = new URL(request.url);
   const type = url.searchParams.get("type");
   const feedUrl = FEEDS[type];

@@ -1,6 +1,7 @@
 node_modules/
 .DS_Store
 .netlify/
+dist/
 
 # Local notes and generated briefs that are not part of the portal deploy.
 agent-improvement-brief-*.md
