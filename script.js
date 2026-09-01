@@ -4,6 +4,11 @@ const CALENDAR_ENDPOINT = "/.netlify/functions/calendar";
 const calendarFormat = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" });
 const agendaDateFormat = new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric" });
 const timeFormat = new Intl.DateTimeFormat("en-US", { hour: "numeric", minute: "2-digit" });
+const TEAM_APP_ORIGIN = "https://app.bynesaints.org";
+
+let portalAccessToken = "";
+let portalInitialized = false;
+let portalScopes = new Set();
 
 let announcements = [
   {
@@ -962,7 +967,10 @@ function renderPortal() {
 }
 
 function setActivePage(page) {
-  const nextPage = document.querySelector(`[data-page="${page}"]`) ? page : "announcements";
+  const requestedPage = document.querySelector(`[data-page="${page}"]`) ? page : "announcements";
+  const requestedScope = requestedPage === "announcements" || requestedPage === "resources" ? "announcements" : "calendar";
+  const fallbackPage = portalScopes.has("announcements") ? "announcements" : "athletics-calendar";
+  const nextPage = portalScopes.has(requestedScope) ? requestedPage : fallbackPage;
   state.activePage = nextPage;
   elements.announcementDetail.classList.add("is-hidden");
 
@@ -1108,7 +1116,7 @@ async function loadCalendar(collection) {
 
   try {
     const response = await fetch(`${CALENDAR_ENDPOINT}?type=${collection}`, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: "application/json", Authorization: `Bearer ${portalAccessToken}` },
     });
     if (!response.ok) throw new Error(`Calendar request failed: ${response.status}`);
     const payload = await response.json();
@@ -1180,7 +1188,7 @@ function normalizeAnnouncement(item) {
 async function loadLiveAnnouncements() {
   try {
     const response = await fetch(ANNOUNCEMENTS_ENDPOINT, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: "application/json", Authorization: `Bearer ${portalAccessToken}` },
     });
     if (!response.ok) return;
 
@@ -1194,12 +1202,43 @@ async function loadLiveAnnouncements() {
 }
 
 async function initializePortal() {
-  setActivePage(window.location.hash.slice(1) || "announcements");
+  const requestedPage = window.location.hash.slice(1) || (portalScopes.has("announcements") ? "announcements" : "athletics-calendar");
+  const permittedPage = requestedPage === "announcements" || requestedPage === "resources"
+    ? portalScopes.has("announcements")
+    : portalScopes.has("calendar");
+  setActivePage(permittedPage ? requestedPage : portalScopes.has("announcements") ? "announcements" : "athletics-calendar");
   renderPortal();
-  await loadLiveAnnouncements();
+  if (portalScopes.has("announcements")) await loadLiveAnnouncements();
   resetVisibleCount("announcements");
   resetVisibleCount("resources");
   renderPortal();
 }
 
-initializePortal();
+function unlockPortal(token, scopes) {
+  if (portalInitialized) return;
+  portalAccessToken = token;
+  portalScopes = new Set(scopes);
+  document.querySelector("[data-portal-lock]")?.classList.add("is-hidden");
+  document.querySelectorAll("[data-portal-content]").forEach((element) => element.classList.remove("is-hidden"));
+  document.querySelectorAll("[data-page-link]").forEach((link) => {
+    const page = link.dataset.pageLink;
+    const allowed = page === "announcements" || page === "resources"
+      ? portalScopes.has("announcements")
+      : portalScopes.has("calendar");
+    link.classList.toggle("is-hidden", !allowed);
+  });
+  portalInitialized = true;
+  void initializePortal();
+}
+
+window.addEventListener("message", (event) => {
+  if (event.origin !== TEAM_APP_ORIGIN || event.source !== window.parent) return;
+  const message = event.data;
+  const scopes = Array.isArray(message?.scopes)
+    ? message.scopes.filter((scope) => scope === "announcements" || scope === "calendar")
+    : [];
+  if (message?.type !== "bcs-team-portal-access" || typeof message.token !== "string" || !message.token || message.token.length > 4096 || scopes.length === 0) return;
+  unlockPortal(message.token, scopes);
+});
+
+window.parent.postMessage({ type: "bcs-communications-portal-ready" }, TEAM_APP_ORIGIN);

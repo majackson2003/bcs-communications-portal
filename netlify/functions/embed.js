@@ -1,11 +1,12 @@
 const NOTION_VERSION = "2022-06-28";
+const { authorizePortalRequest, unauthorizedResponse } = require("../lib/portal-auth");
 
 function response(statusCode, body, contentType = "text/html; charset=utf-8") {
   return {
     statusCode,
     headers: {
       "content-type": contentType,
-      "cache-control": "public, max-age=60, stale-while-revalidate=300",
+      "cache-control": "private, no-store",
     },
     body,
   };
@@ -245,7 +246,9 @@ function pageMarkup(featured, announcements) {
 </html>`;
 }
 
-exports.handler = async () => {
+exports.handler = async (event) => {
+  if (!(await authorizePortalRequest(event, "announcements"))) return unauthorizedResponse("text/html; charset=utf-8");
+
   const token = process.env.NOTION_TOKEN;
   const databaseId = process.env.NOTION_DATABASE_ID;
 
