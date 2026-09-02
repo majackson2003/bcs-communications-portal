@@ -125,7 +125,7 @@ function cardMarkup(item, featured = false) {
         ${badgeMarkup(item.badges)}
         <h3>${escapeHTML(item.title)}</h3>
         ${item.subtitle ? `<p class="subtitle">${escapeHTML(item.subtitle)}</p>` : ""}
-        ${item.description ? `<details open><summary>Description</summary><p>${escapeHTML(item.description)}</p></details>` : ""}
+        ${item.description ? `<details open><summary>Description</summary><p>${escapeHTML(item.description.trim())}</p></details>` : ""}
         ${linkMarkup(item)}
       </div>
     </article>
@@ -206,7 +206,7 @@ async function main() {
   const featured = localized.filter((item) => isNonEmpty(item.featured));
   const announcements = localized.filter((item) => isNonEmpty(item.visible));
 
-  fs.writeFileSync(OUTPUT_PATH, pageMarkup(featured, announcements));
+  fs.writeFileSync(OUTPUT_PATH, pageMarkup(featured, announcements).replace(/[ \t]+$/gm, ""));
   console.log(`Wrote ${OUTPUT_PATH} with ${featured.length} featured and ${announcements.length} announcements.`);
 }
 
