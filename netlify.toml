@@ -12,3 +12,8 @@
     Referrer-Policy = "no-referrer"
     X-Robots-Tag = "noindex, nofollow"
     Content-Security-Policy = "frame-ancestors https://app.bynesaints.org"
+
+[[headers]]
+  for = "/gradelink-static.html"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors *"

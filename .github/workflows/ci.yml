@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - codex/public-communications-portal
+
+permissions:
+  contents: read
+
+jobs:
+  application-verification:
+    name: Application verification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  secret-scanning:
+    name: Secret scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reject committed private-key material and common credential assignments
+        run: |
+          ! git grep -nI -E -- ': *(sk_(live|test)_[A-Za-z0-9]+|gh[pousr]_[A-Za-z0-9]+|AKIA[0-9A-Z]{16}|-----BEGIN( [A-Z]+)? PRIVATE KEY-----)' -- . ':!package-lock.json'
