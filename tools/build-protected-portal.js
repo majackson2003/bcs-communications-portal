@@ -9,6 +9,7 @@ mkdirSync(output, { recursive: true });
 copyFileSync(resolve(root, "index.html"), resolve(output, "index.html"));
 copyFileSync(resolve(root, "styles.css"), resolve(output, "styles.css"));
 copyFileSync(resolve(root, "gradelink-static.html"), resolve(output, "gradelink-static.html"));
+copyFileSync(resolve(root, "gradelink-public.js"), resolve(output, "gradelink-public.js"));
 cpSync(resolve(root, "assets", "gradelink"), resolve(output, "assets", "gradelink"), { recursive: true });
 
 const source = readFileSync(resolve(root, "script.js"), "utf8");

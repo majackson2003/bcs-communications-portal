@@ -11,14 +11,17 @@
       .top { background: var(--navy); color: white; padding: 28px 18px 34px; }
       .main { padding: 30px 18px 46px; }
       .wrap { width: min(1180px, 100%); margin: 0 auto; }
+      .public-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+      .public-nav a { border: 1px solid rgba(255,255,255,0.55); border-radius: 999px; color: white; font-size: 0.82rem; font-weight: 800; padding: 8px 12px; text-decoration: none; }
+      .public-nav a[aria-current] { background: white; color: var(--navy); }
       h1, h2, h3, p { margin: 0; }
       h1, h2 { font-size: 1.05rem; letter-spacing: 0; font-weight: 800; }
       .grid { display: grid; gap: 18px; margin-top: 20px; }
       .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .announcement-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .card { overflow: hidden; border-radius: 8px; background: white; box-shadow: 0 10px 22px rgba(12, 30, 45, 0.1); }
-      .card img { display: block; width: 100%; height: 230px; object-fit: cover; object-position: top center; background: #edf3f8; }
-      .featured-card img { height: 320px; }
+      .card img { display: block; width: 100%; height: clamp(180px, 42vw, 280px); object-fit: contain; object-position: center; background: #f7f9fb; }
+      .featured-card img { height: clamp(200px, 45vw, 320px); }
       .card-body { display: grid; gap: 10px; padding: 18px; }
       .badges { display: flex; flex-wrap: wrap; gap: 7px; }
       .badges span { display: inline-flex; border-radius: 999px; padding: 5px 9px; background: #e7f0fb; color: #174263; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
@@ -31,13 +34,21 @@
       .links a { color: #174263; font-size: 0.88rem; overflow-wrap: anywhere; }
       .empty { margin-top: 18px; color: rgba(255,255,255,0.8); }
       .main .empty { color: #42546a; }
-      @media (max-width: 820px) { .featured-grid, .announcement-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      @media (max-width: 560px) { .featured-grid, .announcement-grid { grid-template-columns: 1fr; } .card img, .featured-card img { height: auto; } }
+      .calendar-list { display: grid; gap: 12px; margin-top: 20px; }
+      .calendar-item { display: grid; gap: 12px; grid-template-columns: 98px 1fr; background: white; border-radius: 8px; padding: 18px; }
+      .calendar-date { color: #174263; font-weight: 800; }
+      @media (max-width: 760px) { .top { padding: 22px 14px 28px; } .main { padding: 24px 14px 36px; } .featured-grid, .announcement-grid { grid-template-columns: 1fr; } .card-body { padding: 16px; } .calendar-item { grid-template-columns: 1fr; } }
     </style>
   </head>
   <body>
     <section class="top">
       <div class="wrap">
+        <nav class="public-nav" aria-label="Public portal pages">
+          <a href="gradelink-static.html" data-view="announcements" aria-current="page">Announcements</a>
+          <a href="gradelink-static.html?page=resources" data-view="resources">Resources</a>
+          <a href="gradelink-static.html?page=academic" data-view="academic">Academic Calendar</a>
+          <a href="gradelink-static.html?page=athletics" data-view="athletics">Athletics Calendar</a>
+        </nav>
         <h1>FEATURED</h1>
         <div class="grid featured-grid">
     <article class="card featured-card">
@@ -312,5 +323,6 @@ With Joy,  Dr. Hall</p></details>
   </div>
       </div>
     </section>
+    <script src="gradelink-public.js"></script>
   </body>
 </html>

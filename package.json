@@ -7,7 +7,7 @@
     "build": "node tools/build-protected-portal.js",
     "start": "node server.js",
     "generate:gradelink": "node tools/generate-gradelink-static.js",
-    "test": "node --check script.js && node --check server.js && node --check netlify/lib/portal-auth.js && node --check netlify/functions/announcements.js && node --check netlify/functions/embed.js && node --check netlify/functions/calendar.mjs && node --check tools/build-protected-portal.js && node --check tools/generate-gradelink-static.js && node --test tests/*.test.js && npm run build"
+    "test": "node --check script.js && node --check server.js && node --check gradelink-public.js && node --check netlify/lib/portal-auth.js && node --check netlify/functions/announcements.js && node --check netlify/functions/embed.js && node --check netlify/functions/gradelink-public.js && node --check netlify/functions/calendar.mjs && node --check tools/build-protected-portal.js && node --check tools/generate-gradelink-static.js && node --test tests/*.test.js && npm run build"
   },
   "keywords": [],
   "author": "",
