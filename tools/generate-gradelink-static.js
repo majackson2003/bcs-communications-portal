@@ -152,8 +152,8 @@ function pageMarkup(featured, announcements) {
       .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .announcement-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .card { overflow: hidden; border-radius: 8px; background: white; box-shadow: 0 10px 22px rgba(12, 30, 45, 0.1); }
-      .card img { display: block; width: 100%; height: 230px; object-fit: cover; object-position: top center; background: #edf3f8; }
-      .featured-card img { height: 320px; }
+      .card img { display: block; width: 100%; height: clamp(180px, 42vw, 280px); object-fit: contain; object-position: center; background: #f7f9fb; }
+      .featured-card img { height: clamp(200px, 45vw, 320px); }
       .card-body { display: grid; gap: 10px; padding: 18px; }
       .badges { display: flex; flex-wrap: wrap; gap: 7px; }
       .badges span { display: inline-flex; border-radius: 999px; padding: 5px 9px; background: #e7f0fb; color: #174263; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
@@ -166,8 +166,7 @@ function pageMarkup(featured, announcements) {
       .links a { color: #174263; font-size: 0.88rem; overflow-wrap: anywhere; }
       .empty { margin-top: 18px; color: rgba(255,255,255,0.8); }
       .main .empty { color: #42546a; }
-      @media (max-width: 820px) { .featured-grid, .announcement-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      @media (max-width: 560px) { .featured-grid, .announcement-grid { grid-template-columns: 1fr; } .card img, .featured-card img { height: auto; } }
+      @media (max-width: 760px) { .top { padding: 22px 14px 28px; } .main { padding: 24px 14px 36px; } .featured-grid, .announcement-grid { grid-template-columns: 1fr; } .card-body { padding: 16px; } }
     </style>
   </head>
   <body>
