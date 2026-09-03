@@ -18,6 +18,8 @@ function plainText(property) {
   if (property.type === "title") return property.title?.map((part) => part.plain_text).join("").trim() || "";
   if (property.type === "rich_text") return property.rich_text?.map((part) => part.plain_text).join("").trim() || "";
   if (property.type === "url") return property.url || "";
+  if (property.type === "select") return property.select?.name || "";
+  if (property.type === "number") return property.number ?? "";
   return "";
 }
 
