@@ -119,12 +119,14 @@
       const tags = [...new Set(state.items.flatMap((item) => item.tags || []))].sort();
       els.filter.innerHTML = '<option value="">All topics</option>' + tags.map((tag) => '<option value="' + escape(tag) + '">' + escape(tag) + '</option>').join("");
       if (tags.includes(selected)) els.filter.value = selected;
-      els.status.textContent = "Updated " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) + " · Refreshes automatically";
+      els.status.textContent = "";
+      els.status.parentElement.hidden = true;
     } catch {
       // Never replace a failed live request with old published announcements.
       state.error = true;
       state.items = [];
       els.status.textContent = "Could not refresh current content. Please try again.";
+      els.status.parentElement.hidden = false;
     } finally {
       clearTimeout(timeout);
       state.pending = false;
