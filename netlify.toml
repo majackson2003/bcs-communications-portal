@@ -16,4 +16,12 @@
 [[headers]]
   for = "/gradelink-static.html"
   [headers.values]
-    Content-Security-Policy = "frame-ancestors *"
+    # This read-only public page must also embed inside opaque-origin app views.
+    # frame-ancestors * still blocks those views in WebKit.
+    Content-Security-Policy = "base-uri 'self'; object-src 'none'"
+
+[[headers]]
+  for = "/gradelink-static"
+  [headers.values]
+    # Netlify's pretty URLs also serve this page without the .html extension.
+    Content-Security-Policy = "base-uri 'self'; object-src 'none'"
