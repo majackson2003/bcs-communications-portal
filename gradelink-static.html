@@ -3,326 +3,51 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BCS Communications Static</title>
-    <style>
-      :root { color-scheme: light; --navy: #132f44; --blue: #d1e5f9; --ink: #1f2f3f; }
-      * { box-sizing: border-box; }
-      body { margin: 0; background: var(--blue); color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
-      .top { background: var(--navy); color: white; padding: 28px 18px 34px; }
-      .main { padding: 30px 18px 46px; }
-      .wrap { width: min(1180px, 100%); margin: 0 auto; }
-      .public-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
-      .public-nav a { border: 1px solid rgba(255,255,255,0.55); border-radius: 999px; color: white; font-size: 0.82rem; font-weight: 800; padding: 8px 12px; text-decoration: none; }
-      .public-nav a[aria-current] { background: white; color: var(--navy); }
-      h1, h2, h3, p { margin: 0; }
-      h1, h2 { font-size: 1.05rem; letter-spacing: 0; font-weight: 800; }
-      .grid { display: grid; gap: 18px; margin-top: 20px; }
-      .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .announcement-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .card { overflow: hidden; border-radius: 8px; background: white; box-shadow: 0 10px 22px rgba(12, 30, 45, 0.1); }
-      .card img { display: block; width: 100%; height: clamp(180px, 42vw, 280px); object-fit: contain; object-position: center; background: #f7f9fb; }
-      .featured-card img { height: clamp(200px, 45vw, 320px); }
-      .card-body { display: grid; gap: 10px; padding: 18px; }
-      .badges { display: flex; flex-wrap: wrap; gap: 7px; }
-      .badges span { display: inline-flex; border-radius: 999px; padding: 5px 9px; background: #e7f0fb; color: #174263; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
-      h3 { color: #1f2f3f; font-size: 1.04rem; line-height: 1.25; }
-      .subtitle, details p { color: #42546a; font-size: 0.94rem; line-height: 1.48; }
-      details { border-top: 1px solid #e2e9f1; padding-top: 10px; }
-      summary { color: #1f2f3f; font-size: 0.82rem; font-weight: 800; text-transform: uppercase; }
-      details p { margin-top: 9px; white-space: pre-line; }
-      .links { display: grid; gap: 7px; }
-      .links a { color: #174263; font-size: 0.88rem; overflow-wrap: anywhere; }
-      .empty { margin-top: 18px; color: rgba(255,255,255,0.8); }
-      .main .empty { color: #42546a; }
-      .calendar-list { display: grid; gap: 12px; margin-top: 20px; }
-      .calendar-item { display: grid; gap: 12px; grid-template-columns: 98px 1fr; background: white; border-radius: 8px; padding: 18px; }
-      .calendar-date { color: #174263; font-weight: 800; }
-      @media (max-width: 760px) { .top { padding: 22px 14px 28px; } .main { padding: 24px 14px 36px; } .featured-grid, .announcement-grid { grid-template-columns: 1fr; } .card-body { padding: 16px; } .calendar-item { grid-template-columns: 1fr; } }
-    </style>
+    <title>Byne Christian School Parent Portal</title>
+    <link rel="stylesheet" href="gradelink-public.css">
+    <script src="gradelink-public.js" defer></script>
   </head>
   <body>
-    <section class="top">
-      <div class="wrap">
+    <header class="portal-header">
+      <div class="wrap header-content">
+        <a class="brand" href="gradelink-static.html">Byne Christian School</a>
         <nav class="public-nav" aria-label="Public portal pages">
-          <a href="gradelink-static.html" data-view="announcements" aria-current="page">Announcements</a>
+          <a href="gradelink-static.html" data-view="announcements">Announcements</a>
           <a href="gradelink-static.html?page=resources" data-view="resources">Resources</a>
           <a href="gradelink-static.html?page=academic" data-view="academic">Academic Calendar</a>
           <a href="gradelink-static.html?page=athletics" data-view="athletics">Athletics Calendar</a>
         </nav>
-        <h1>FEATURED</h1>
-        <div class="grid featured-grid">
-    <article class="card featured-card">
-      <img src="assets/gradelink/college-career-week-september-21-24-f50e8f4410.jpg" alt="College &amp; Career Week — September 21–24 artwork">
-      <div class="card-body">
-
-        <h3>College &amp; Career Week — September 21–24</h3>
-
-        <details open><summary>Description</summary><p>Our juniors and seniors will visit college campuses September 21–23, and students will meet professionals at the Career Expo on September 24 as they consider how God might use their gifts for the glory of God and the good of the world.</p></details>
-
       </div>
-    </article>
-
-    <article class="card featured-card">
-      <img src="assets/gradelink/bcs-yearbook-pictures-it-s-picture-day-f26c584edf.png" alt="BCS Yearbook Pictures — It&#39;s Picture Day! artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>BCS Yearbook Pictures — It&#39;s Picture Day!</h3>
-        <p class="subtitle">Picture days by grade — September 15–17</p>
-        <details open><summary>Description</summary><p>Yearbook picture days are coming up!
-
-Tuesday, September 15 — Seniors, Staff &amp; Admin
-Wednesday, September 16 — Lower &amp; Upper Grammar
-Thursday, September 17 — Logic &amp; Rhetoric.
-
-Uniforms are required. Two photos will be taken per student: a regular portrait and a personality portrait. Photos will be available for purchase.
-
-Photography provided by Rebecca James, In The Light Creative Studio.</p></details>
-
+    </header>
+    <div class="wrap status-row">
+      <p data-status role="status" aria-live="polite">Loading current announcements…</p>
+      <button type="button" class="text-button" data-refresh>Refresh</button>
+    </div>
+    <main>
+      <div data-overview>
+        <section class="featured-section" data-featured-section>
+          <div class="wrap">
+            <h1>Featured</h1>
+            <div class="grid featured-grid" data-featured-grid></div>
+            <p class="empty" data-featured-empty hidden>No featured announcements right now.</p>
+          </div>
+        </section>
+        <section class="announcements-section">
+          <div class="wrap">
+            <h2 data-list-heading>All announcements</h2>
+            <div class="toolbar" data-toolbar>
+              <label>Search announcements<input type="search" data-search placeholder="Search announcements" autocomplete="off"></label>
+              <label>Filter by topic<select data-filter><option value="">All topics</option></select></label>
+            </div>
+            <p class="results-meta" data-results></p>
+            <div class="grid announcement-grid" data-grid></div>
+            <p class="empty" data-empty hidden>No current announcements.</p>
+            <button class="load-more" type="button" data-load-more hidden>Show more</button>
+          </div>
+        </section>
       </div>
-    </article>
-
-    <article class="card featured-card">
-      <img src="assets/gradelink/giggles-gratitude-grandparents-b50a01af06.png" alt="Giggles, Gratitude, &amp; Grandparents artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>Giggles, Gratitude, &amp; Grandparents</h3>
-        <p class="subtitle">Sept 15th - A Grandparents Day Celebration with  our K3-6th Grammar Students.</p>
-        <details open><summary>Description</summary><p>Tuesday, September 15 is Grandparents Day at Byne Christian School presented by our K3-6th Grammar students!                                                      Please make sure to read all the details regarding this very special day.                                                                                                   Don’t forget to fill out the jotform below in order to check out your grandchild early.
-First Things First: When you arrive, please check in at the school office to pick up your visitor&#39;s badge. This helps us keep every grandchild safe and accounted for throughout the morning. Thanks for helping us with this small step!
-
-9:00 AM — Coffee &amp; Prayer with Admin (Grandparents only — this sacred hour is just for you and our admin team. Students will join you at 10 AM, so you&#39;ll have a quiet moment to start the morning together in prayer.)
-
-10:00–11:30 AM — Worship Center • Grandparents Day Program presented by our Grammar Students • Craft Time with your Grandchild
-
-Planning to check out your grandchild early? If you&#39;d like to sign your grandchild out after the program, please complete our checkout authorization form in advance: https://form.jotform.com/262165429835161
-If your child is not checking out early, submit photos here: https://form.jotform.com/262383798458173
-We can&#39;t wait to fill the Worship Center with hugs, laughter, and a few happy tears. Save the date!</p></details>
-        <div class="links"><a href="https://form.jotform.com/262165429835161" target="_blank" rel="noreferrer">Link: https://form.jotform.com/262165429835161</a></div>
-      </div>
-    </article>
-  </div>
-      </div>
-    </section>
-    <section class="main">
-      <div class="wrap">
-        <h2>NEW &amp; ANNOUNCEMENTS</h2>
-        <div class="grid announcement-grid">
-    <article class="card">
-      <img src="assets/gradelink/spirit-wear-store-opens-soon-3c5f0e3990.jpg" alt="Spirit Wear Store Opens Soon! artwork">
-      <div class="card-body">
-
-        <h3>Spirit Wear Store Opens Soon!</h3>
-
-        <details open><summary>Description</summary><p>The Saints Spirit Wear store is expected to open Friday, September 4 and will be open for one week, closing around Friday, September 11. Shirts will be delivered within two weeks of the store closing. Ordering link coming soon!</p></details>
-
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/college-career-week-september-21-24-f50e8f4410.jpg" alt="College &amp; Career Week — September 21–24 artwork">
-      <div class="card-body">
-
-        <h3>College &amp; Career Week — September 21–24</h3>
-
-        <details open><summary>Description</summary><p>Our juniors and seniors will visit college campuses September 21–23, and students will meet professionals at the Career Expo on September 24 as they consider how God might use their gifts for the glory of God and the good of the world.</p></details>
-
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/rooted-growing-and-thankful-a-note-from-dr-hall-e63bf98e95.png" alt="Rooted, Growing, and Thankful: A Note from Dr. Hall artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>Rooted, Growing, and Thankful: A Note from Dr. Hall</h3>
-        <p class="subtitle">Dr. Hall reflects on the first two weeks of school, this year&#39;s theme, and what&#39;s ahead.</p>
-        <details open><summary>Description</summary><p>Can you believe we are already nine days into the school year? What a start it has been! From the moment the doors opened on day one, our campus has been filled with bright smiles, from students, parents, and teachers alike, and such wonderful anticipation for the year ahead. The energy in our classrooms has been contagious as students reconnect with old friends, meet new ones, and dive into…. click here to read more</p></details>
-        <div class="links"><a href="https://www.byneschool.org/news/off-to-a-great-start" target="_blank" rel="noreferrer">Link: https://www.byneschool.org/news/off-to-a-great-start</a></div>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/bcs-yearbook-pictures-it-s-picture-day-f26c584edf.png" alt="BCS Yearbook Pictures — It&#39;s Picture Day! artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>BCS Yearbook Pictures — It&#39;s Picture Day!</h3>
-        <p class="subtitle">Picture days by grade — September 15–17</p>
-        <details open><summary>Description</summary><p>Yearbook picture days are coming up!
-
-Tuesday, September 15 — Seniors, Staff &amp; Admin
-Wednesday, September 16 — Lower &amp; Upper Grammar
-Thursday, September 17 — Logic &amp; Rhetoric.
-
-Uniforms are required. Two photos will be taken per student: a regular portrait and a personality portrait. Photos will be available for purchase.
-
-Photography provided by Rebecca James, In The Light Creative Studio.</p></details>
-
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/byne-christian-saints-girls-basketball-interest-meeting-e13417fe90.png" alt="Byne Christian Saints Girls Basketball Interest Meeting artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>Byne Christian Saints Girls Basketball Interest Meeting</h3>
-        <p class="subtitle">Open to 6th–12th graders — September 10 at 6:00 PM</p>
-        <details open><summary>Description</summary><p>Byne Christian Saints Girls Basketball is hosting an Interest Meeting on September 10 at 6:00 PM in the gym, open to students in 6th–12th grade. Parents and students are encouraged to attend.
-
-Go Saints! Together We Win!</p></details>
-
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/byne-christian-school-cheer-tryouts-and-info-meeting-31be58b241.png" alt="Byne Christian School Cheer Tryouts and Info Meeting artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>Byne Christian School Cheer Tryouts and Info Meeting</h3>
-        <p class="subtitle">Open to 6th–12th graders — info meeting on September 10 &amp; tryouts on September 15, 16 &amp; 17</p>
-        <details open><summary>Description</summary><p>Byne Christian School Cheer Tryouts are coming up! Open to all students in 6th–12th grade, tryouts will be held September 15, 16, and 17 in the gym.
-
-Before tryouts, we&#39;ll host a Parent Informational Meeting on Thursday, September 10 at 6:00 PM in the Ledo Room. All interested cheer families are encouraged to attend.
-
-Be Loud. Be Proud. Be a Saint!</p></details>
-
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/bcs-karate-is-back-b28845a342.png" alt="BCS Karate is Back artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>BCS Karate is Back</h3>
-        <p class="subtitle">Tuesdays &amp; Thursdays 3:15pm and 4:00pm - ages 4 and up</p>
-        <details open><summary>Description</summary><p>The BCS Karate Club is no longer in its “launch” season—it’s in its thriving season. With around 30 BCS students currently enrolled, this after-school program continues to grow as students train, advance, and earn their ranks right here on campus.
-The beauty of this program is its flexibility: students may join at any time. New students will not “catch up” to those already ahead—but they will progress the same way every karate student does, earning their rank through effort, consistency, and discipline.
-
-Schedule &amp; Location
-
-Days: Tuesdays and Thursdays
-Times:
-Little Dragons (Younger Students): 3:15 – 4:00 PM
-Older Students: 4:00 – 4:45 PM
-Location: Faith Factory room (spacious with mirrored walls, capacity 25–30 students).
-
-Age Groups
-Little Dragons (Ages 4 – 4th Grade): Focus on foundational karate skills and fun activities.
-Older Group (5th Grade and Up): Training designed for maturity, discipline, and advanced development.
-Note: Final grade-level cutoffs will be adjusted based on enrollment to keep groups balanced and accommodate friendships.
-
-Pricing Options
-Choose the payment option that works best for your family:
-$75 per month (recurring payment).
-$200 per semester (one-time payment, discounted rate).
-💡 Our pricing is set below the rate of local dojos, offering you convenience and value on campus.
-
-Uniforms
-Cost: $35 (one-time fee).
-Details: Uniforms are required for participation and can be ordered during registration.
-Policy: Students without uniforms on a given day will still be allowed to participate.
-
-Student Dismissal
-Teachers will direct all karate club students to the Faith Factory after school. Students in the Little Dragons group will be dismissed from karate directly at 3:45 PM.
-Older students waiting for the 3:45 PM session will remain supervised.
-PICK UP: From After School Care - pull under the portico and tell them your student&#39;s name.
-
-Next Steps for Families:
-Register now:https://pci.jotform.com/form/252366142497159.                             A uniform will be available for purchase following registration. ($30 promotional price).https://pci.jotform.com/form/252855994979182
-
-📌 Questions? Please contact sswails@bcssaints.org with any questions.</p></details>
-        <div class="links"><a href="https://pci.jotform.com/form/252366142497159" target="_blank" rel="noreferrer">Link: https://pci.jotform.com/form/252366142497159</a></div>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/giggles-gratitude-grandparents-b50a01af06.png" alt="Giggles, Gratitude, &amp; Grandparents artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>Giggles, Gratitude, &amp; Grandparents</h3>
-        <p class="subtitle">Sept 15th - A Grandparents Day Celebration with  our K3-6th Grammar Students.</p>
-        <details open><summary>Description</summary><p>Tuesday, September 15 is Grandparents Day at Byne Christian School presented by our K3-6th Grammar students!                                                      Please make sure to read all the details regarding this very special day.                                                                                                   Don’t forget to fill out the jotform below in order to check out your grandchild early.
-First Things First: When you arrive, please check in at the school office to pick up your visitor&#39;s badge. This helps us keep every grandchild safe and accounted for throughout the morning. Thanks for helping us with this small step!
-
-9:00 AM — Coffee &amp; Prayer with Admin (Grandparents only — this sacred hour is just for you and our admin team. Students will join you at 10 AM, so you&#39;ll have a quiet moment to start the morning together in prayer.)
-
-10:00–11:30 AM — Worship Center • Grandparents Day Program presented by our Grammar Students • Craft Time with your Grandchild
-
-Planning to check out your grandchild early? If you&#39;d like to sign your grandchild out after the program, please complete our checkout authorization form in advance: https://form.jotform.com/262165429835161
-If your child is not checking out early, submit photos here: https://form.jotform.com/262383798458173
-We can&#39;t wait to fill the Worship Center with hugs, laughter, and a few happy tears. Save the date!</p></details>
-        <div class="links"><a href="https://form.jotform.com/262165429835161" target="_blank" rel="noreferrer">Link: https://form.jotform.com/262165429835161</a></div>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/help-us-share-memories-1407ea5925.png" alt="Help us share memories! artwork">
-      <div class="card-body">
-        <div class="badges"><span>NEW</span></div>
-        <h3>Help us share memories!</h3>
-        <p class="subtitle">Text any photos  and videos to (229) 270-0888</p>
-        <details open><summary>Description</summary><p>Got a great shot from a game, program, field trip, or classroom moment? Text your photos and videos to (229) 270-0888 and we may use them on social media, in chapel and event slideshows, and in the yearbook. Please include the student&#39;s name and the event if you can.</p></details>
-
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/2026-2027-uniform-dress-code-cheat-sheet-bdc30011a1.png" alt="2026–2027 Uniform Dress Code Cheat Sheet artwork">
-      <div class="card-body">
-
-        <h3>2026–2027 Uniform Dress Code Cheat Sheet</h3>
-        <p class="subtitle">Quick Answers to Common Dress Code Questions</p>
-        <details open><summary>Description</summary><p>To help families prepare for the upcoming school year, we&#39;ve created a convenient Uniform Dress Code Cheat Sheet that highlights the most commonly referenced dress code guidelines in one easy-to-read document.
-
-Please note: one embroidered navy blue polo is mandatory for all students to wear on field trips.
-
-This quick reference includes:
-• Daily uniform requirements for Grammar, Logic, and Rhetoric students
-• Approved uniform colors and styles
-• Friday and Spirit Day attire guidelines
-• General appearance expectations
-• Common dress code reminders and violations
-
-While this cheat sheet is designed to answer many frequently asked questions, families should also refer to the Student Handbook (Pg 34) for complete dress code policies and procedures.
-
-Thank you for helping us maintain a consistent, professional, and Christ-honoring learning environment as we begin another great year at Byne Christian School.</p></details>
-
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/2026-2027-bcs-student-handbook-bf55ea4353.png" alt="2026–2027 BCS Student Handbook artwork">
-      <div class="card-body">
-
-        <h3>2026–2027 BCS Student Handbook</h3>
-        <p class="subtitle">Your Guide for a Successful School Year</p>
-        <details open><summary>Description</summary><p>The 2026–2027 Byne Christian School Student Handbook is now available. This handbook serves as an important resource for students and families, outlining school policies, academic expectations, dress code requirements, attendance guidelines, student life information, and other essential details for the upcoming school year.
-
-We encourage all parents and students to review the handbook carefully before the start of school. Familiarity with these guidelines helps ensure a smooth and successful year as we partner together in providing a Christ-centered, classical education.
-
-Please keep this handbook accessible throughout the school year for reference as needed.
-
-Thank you for your partnership with Byne Christian School. We are looking forward to an incredible year of learning, growth, and spiritual development.</p></details>
-        <div class="links"><a href="https://drive.google.com/file/d/13Whbz4TN-_cHi09BYIQNEip2peCpmiZ7/view?usp=sharing" target="_blank" rel="noreferrer">Link: https://drive.google.com/file/d/13Whbz4TN-_cHi09BYIQNEip2peCpmiZ7/view?usp=sharing</a></div>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="assets/gradelink/2026-2027-school-calendar-3d5879efea.jpg" alt="2026–2027 School Calendar artwork">
-      <div class="card-body">
-
-        <h3>2026–2027 School Calendar</h3>
-        <p class="subtitle">Plan Ahead for a Purposeful Year</p>
-        <details open><summary>Description</summary><p>Our 2026-2027 school calendar is now available, complete with all the important dates you need to know. We hope this gives you plenty of time to plan and prepare for another wonderful year together.
-
-Thank you for being partners in your child&#39;s education.
-We can&#39;t wait to see what next year brings!
-
-With Joy,  Dr. Hall</p></details>
-        <div class="links"><a href="https://drive.google.com/file/d/1hSfsxYQLUnSOLF_TqDzh0Smx3w4uRE5k/view?usp=drive_link" target="_blank" rel="noreferrer">Link: https://drive.google.com/file/d/1hSfsxYQLUnSOLF_TqDzh0Smx3w4uRE5k/view?usp=drive_link</a></div>
-      </div>
-    </article>
-  </div>
-      </div>
-    </section>
-    <script src="gradelink-public.js"></script>
+      <section class="detail-page wrap" data-detail hidden aria-label="Announcement details"></section>
+    </main>
+    <noscript><p class="wrap">Please enable JavaScript to view current announcements.</p></noscript>
   </body>
 </html>
